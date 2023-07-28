@@ -10,6 +10,9 @@
 #define KP_MULT   KP_MULTIPLY
 #define BATT_LVL  &rgb_ug RGB_MEFS_CMD 5
 
+#define HYP(key) LS(LC(LA(LG(key))))
+#define HYPR    LS(LC(LA(LGUI)))
+
 / {
     combos {
       compatible = "zmk,combos";
@@ -48,6 +51,16 @@
           #binding-cells = <0>;
           continue-list = <MINUS UNDERSCORE LSHFT RSHFT>;
       };
+
+      hy: hyper_tap {
+          compatible = "zmk,behavior-hold-tap";
+          label = "HYPER_TAP";
+          #binding-cells = <2>;
+          flavor = "hold-preferred";
+          tapping-term-ms = <200>;                        // <---[[produces tap if held longer than tapping-term-ms]]
+          #quick-tap-ms = <200>;
+          bindings = <&kp>, <&kp>;
+      };
     };
 
   keymap {
@@ -60,7 +73,7 @@
 // 14 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
         &kp DEL       &kp Q         &kp W         &kp E         &kp R         &kp T         &none                                                                                                             &none         &kp Y         &kp U         &kp I         &kp O         &kp P         &kp BSLH
 // 28 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                   ╭─────────────┬─────────────╮    ╭─────────────┬─────────────╮                  ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-        &kp ESC       &kp A         &kp S         &kp D         &kp F         &kp G         &none                             &kp LCTRL     &kp LALT           &kp LGUI      &kp RCTRL                        &none         &kp H         &kp J         &kp K         &kp L         &kp SEMI      &kp SQT
+        &hy HYPR ESC  &kp A         &kp S         &kp D         &kp F         &kp G         &none                             &kp LCTRL     &kp LALT           &kp LGUI      &kp RCTRL                        &none         &kp H         &kp J         &kp K         &kp L         &kp SEMI      &kp SQT
 // 46 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯     ╭─────────────┼─────────────┼─────────────┤    ├─────────────┼─────────────┼─────────────╮    ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
         &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B                                                         &kp HOME           &kp PG_UP                                                    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RSHFT
 // 60 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯                   │             │             ├─────────────┤    ├─────────────┤             │             │                  ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
